@@ -7,7 +7,7 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 	public LightningArtist lightningArtist;
     //public WebcamPhoto webcamPhoto;
 	//public UnityEngine.XR.iOS.UnityARVideo arVideo;
-	public UnityARCameraManager_Custom arCameraManager;
+	//public UnityARCameraManager_Custom arCameraManager;
 	public ShowHideGeneric showHideGeneric;
 	public int fontSize = 25;
 	public bool showButtons = true;
@@ -56,6 +56,7 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 
 				// 1-2.
 				Rect freezeButton = new Rect(BUTTON_GAP_X, Screen.height - (3 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				/*
 				isOn = arCameraManager.freezeUpdate ? "ON" : "OFF";
 				if (GUI.Button(freezeButton, FONT_SIZE + "Freeze " + isOn + "</size>")) {
 					//arVideo.freezeUpdate = !arVideo.freezeUpdate;
@@ -66,6 +67,7 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 						arCameraManager.m_session.Run();
 					}
 				}
+				*/
 
 				// 1-3.
 				Rect undoButton = new Rect(BUTTON_GAP_X, Screen.height - (4 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
