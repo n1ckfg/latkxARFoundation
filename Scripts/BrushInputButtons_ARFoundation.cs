@@ -5,6 +5,7 @@ using UnityEngine;
 public class BrushInputButtons_ARFoundation : MonoBehaviour {
 
 	public LightningArtist lightningArtist;
+	public BrushInputTouchARFoundation latkInput;
 	//public WebcamPhoto webcamPhoto;
 	//public UnityEngine.XR.iOS.UnityARVideo arVideo;
 	//public UnityARCameraManager_Custom arCameraManager;
@@ -129,6 +130,21 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
                     webcamPhoto.toggleCam();
                 }
                 */
+
+				Rect drawModeButton = new Rect(BUTTON_GAP_X, Screen.height - (7 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				isOn = latkInput.drawMode == BrushInputTouchARFoundation.DrawMode.FREE ? "ON" : "OFF";
+				if (GUI.Button(drawModeButton, FONT_SIZE + "Raycast " + isOn + "</size>")) {
+					if (latkInput.drawMode == BrushInputTouchARFoundation.DrawMode.FREE) {
+						latkInput.drawMode = BrushInputTouchARFoundation.DrawMode.FIXED;
+					} else if (latkInput.drawMode == BrushInputTouchARFoundation.DrawMode.FIXED) {
+						latkInput.drawMode = BrushInputTouchARFoundation.DrawMode.FREE;
+					}
+				}
+
+				Rect deleteButton = new Rect(BUTTON_GAP_X, Screen.height - (6 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				if (GUI.Button(deleteButton, FONT_SIZE + "Delete Frame" + "</size>")) {
+					lightningArtist.inputDeleteFrame();
+				}
 
 				Rect readButton = new Rect(BUTTON_GAP_X, Screen.height - (1 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
 				if (GUI.Button(readButton, FONT_SIZE + "Demo" + "</size>")) {
