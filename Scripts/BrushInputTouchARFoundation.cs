@@ -35,13 +35,22 @@ public class BrushInputTouchARFoundation : MonoBehaviour {
 			}
 
 			if (touchActive) {
-				Vector3 p = lightningArtist.target.transform.position;
+				Vector3 p = Vector3.zero;
 
 				if (drawMode == DrawMode.FREE) {
-					p = Camera.main.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, zPos));
+					Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0f));
+					float finalZ = zPos;
+					RaycastHit hit;
+
+					if (Physics.Raycast(ray, out hit)) {
+						p = hit.point;
+					} else {
+						p = Camera.main.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, zPos));
+					}
 				} else if (drawMode == DrawMode.FIXED) {
-					// no change
+					p = Camera.main.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, zPos));
 				}
+
 				lightningArtist.target.transform.position = p;
 			}
 

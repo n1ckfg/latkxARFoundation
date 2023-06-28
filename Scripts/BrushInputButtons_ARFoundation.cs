@@ -49,28 +49,38 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 			string isOn = "";
 
 			if (menuCounter == 1) {
-				// 1-1.
-				Rect writeButton = new Rect(BUTTON_GAP_X, Screen.height - (1 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				//isOn = lightningArtist.showOnionSkin ? "ON" : "OFF";
-				if (GUI.Button(writeButton, FONT_SIZE + "Write" + "</size>")) {
-					lightningArtist.armWriteFile = true;
+				Rect rewButton = new Rect(BUTTON_GAP_X, Screen.height - (10 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X / 2f, BUTTON_SIZE_Y);
+				if (GUI.Button(rewButton, FONT_SIZE + "<|" + "</size>")) {
+					lightningArtist.inputFrameBack();
 				}
 
-				// 1-2.
-				Rect freezeButton = new Rect(BUTTON_GAP_X, Screen.height - (3 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				isOn = !arMgr.enabled  ? "ON" : "OFF";
-				if (GUI.Button(freezeButton, FONT_SIZE + "Freeze " + isOn + "</size>")) {
-					arMgr.enabled = !arMgr.enabled;
+				Rect ffButton = new Rect(BUTTON_GAP_X + (BUTTON_SIZE_X / 2f), Screen.height - (10 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X / 2f, BUTTON_SIZE_Y);
+				if (GUI.Button(ffButton, FONT_SIZE + "|>" + "</size>")) {
+					lightningArtist.inputFrameForward();
 				}
 
-				// 1-3.
-				Rect undoButton = new Rect(BUTTON_GAP_X, Screen.height - (4 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				//isOn = lightningArtist.showOnionSkin ? "ON" : "OFF";
-				if (GUI.Button(undoButton, FONT_SIZE + "Undo" + "</size>")) {
-					lightningArtist.inputEraseLastStroke();
+				Rect playButton = new Rect(BUTTON_GAP_X, Screen.height - (9 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				isOn = lightningArtist.isPlaying ? "Stop" : "Play";
+				if (GUI.Button(playButton, FONT_SIZE + isOn + "</size>")) {
+					lightningArtist.inputPlay();
 				}
 
-				// 1-4.
+				Rect newFrameButton = new Rect(BUTTON_GAP_X, Screen.height - (8 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				if (GUI.Button(newFrameButton, FONT_SIZE + "New Frame" + "</size>")) {
+					lightningArtist.inputNewFrame();
+				}
+
+				Rect copyFrameButton = new Rect(BUTTON_GAP_X, Screen.height - (7 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				if (GUI.Button(copyFrameButton, FONT_SIZE + "Copy Frame" + "</size>")) {
+					lightningArtist.inputNewFrameAndCopy();
+				}
+
+				Rect onionButton = new Rect(BUTTON_GAP_X, Screen.height - (6 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				isOn = lightningArtist.showOnionSkin ? "ON" : "OFF";
+				if (GUI.Button(onionButton, FONT_SIZE + "Onion Skin " + isOn + "</size>")) {
+					lightningArtist.inputOnionSkin();
+				}
+
 				Rect colorButton = new Rect(BUTTON_GAP_X, Screen.height - (5 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
 				isOn = showHideGeneric.target[0].activeSelf ? "ON" : "OFF";
 				if (GUI.Button(colorButton, FONT_SIZE + "Palette " + isOn + "</size>")) {
@@ -81,75 +91,37 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 					}
 				}
 
-				// 1-5.
-				Rect onionButton = new Rect(BUTTON_GAP_X, Screen.height - (6 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				isOn = lightningArtist.showOnionSkin ? "ON" : "OFF";
-				if (GUI.Button(onionButton, FONT_SIZE + "Onion Skin " + isOn + "</size>")) {
-					lightningArtist.inputOnionSkin();
+				Rect undoButton = new Rect(BUTTON_GAP_X, Screen.height - (4 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				if (GUI.Button(undoButton, FONT_SIZE + "Undo" + "</size>")) {
+					lightningArtist.inputEraseLastStroke();
 				}
 
-				// 1-6.
-				Rect copyFrameButton = new Rect(BUTTON_GAP_X, Screen.height - (7 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				//isOn = m_arCameraPostProcess.enabled ? "ON" : "OFF";
-				if (GUI.Button(copyFrameButton, FONT_SIZE + "Copy Frame" + "</size>")) {
-					lightningArtist.inputNewFrameAndCopy();
+				Rect OnnxButton = new Rect(BUTTON_GAP_X, Screen.height - (3 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				if (GUI.Button(OnnxButton, FONT_SIZE + "Contour" + "</size>")) {
+					onnx.DoInference();
 				}
 
-				// 1-7.
-				Rect newFrameButton = new Rect(BUTTON_GAP_X, Screen.height - (8 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				//isOn = m_arCameraPostProcess.enabled ? "ON" : "OFF";
-				if (GUI.Button(newFrameButton, FONT_SIZE + "New Frame" + "</size>")) {
-					lightningArtist.inputNewFrame();
-				}
-
-				// 1-8.
-				Rect playButton = new Rect(BUTTON_GAP_X, Screen.height - (9 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				isOn = lightningArtist.isPlaying ? "Stop" : "Play";
-				if (GUI.Button(playButton, FONT_SIZE + isOn + "</size>")) {
-					//if (!lightningArtist.isPlaying && !playButtonBlock) {
-						lightningArtist.inputPlay();
-						//playButtonBlock = true;
-					//} else {
-						//lightningArtist.inputFrameBack(); // this is simpler than solving with script execution order
-						//playButtonBlock = false;
-					//}
-				}
-
-				// 1-9.
-				Rect rewButton = new Rect(BUTTON_GAP_X, Screen.height - (10 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X/2f, BUTTON_SIZE_Y);
-				//isOn = m_arCameraPostProcess.enabled ? "ON" : "OFF";
-				if (GUI.Button(rewButton, FONT_SIZE + "<|" + "</size>")) {
-					lightningArtist.inputFrameBack();
-				}
-
-				Rect ffButton = new Rect(BUTTON_GAP_X + (BUTTON_SIZE_X/2f), Screen.height - (10 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X/2f, BUTTON_SIZE_Y);
-				//isOn = m_arCameraPostProcess.enabled ? "ON" : "OFF";
-				if (GUI.Button(ffButton, FONT_SIZE + "|>" + "</size>")) {
-					lightningArtist.inputFrameForward();
+				Rect writeButton = new Rect(BUTTON_GAP_X, Screen.height - (1 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				if (GUI.Button(writeButton, FONT_SIZE + "Write" + "</size>")) {
+					lightningArtist.armWriteFile = true;
 				}
 			} else if (menuCounter == 2) {
-                // 2-8.
-                Rect layerChangeButton = new Rect(BUTTON_GAP_X, Screen.height - (10 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-                //isOn = lightningArtist.showOnionSkin ? "ON" : "OFF";
+				Rect layerChangeButton = new Rect(BUTTON_GAP_X, Screen.height - (10 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
                 if (GUI.Button(layerChangeButton, FONT_SIZE + "Next Layer" + "</size>")) {
                     lightningArtist.inputNextLayer();
                 }
                 
-                // 2-7.
                 Rect newLayerButton = new Rect(BUTTON_GAP_X, Screen.height - (9 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-                //isOn = lightningArtist.showOnionSkin ? "ON" : "OFF";
                 if (GUI.Button(newLayerButton, FONT_SIZE + "New Layer" + "</size>")) {
                     lightningArtist.inputNewLayer();
                 }
 
-				// 2-6.
-				Rect OnnxButton = new Rect(BUTTON_GAP_X, Screen.height - (8 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				if (GUI.Button(OnnxButton, FONT_SIZE + "Contour" + "</size>"))
-				{
-					onnx.DoInference();
+				Rect freezeButton = new Rect(BUTTON_GAP_X, Screen.height - (8 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				isOn = !arMgr.enabled ? "ON" : "OFF";
+				if (GUI.Button(freezeButton, FONT_SIZE + "Freeze " + isOn + "</size>")) {
+					arMgr.enabled = !arMgr.enabled;
 				}
 
-				// 2-5.
 				/*
                 Rect webcamButton = new Rect(BUTTON_GAP_X, Screen.height - (7 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
                 isOn = webcamPhoto.isShowing ? "ON" : "OFF";
@@ -158,9 +130,7 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
                 }
                 */
 
-				// 2-1.
 				Rect readButton = new Rect(BUTTON_GAP_X, Screen.height - (1 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				//isOn = lightningArtist.showOnionSkin ? "ON" : "OFF";
 				if (GUI.Button(readButton, FONT_SIZE + "Demo" + "</size>")) {
 					lightningArtist.armReadFile = true;
 				}
