@@ -148,8 +148,15 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
                     lightningArtist.inputNewLayer();
                 }
 
-                // 2-6.
-                /*
+				// 2-6.
+				Rect OnnxButton = new Rect(BUTTON_GAP_X, Screen.height - (8 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				if (GUI.Button(OnnxButton, FONT_SIZE + "Contour" + "</size>"))
+				{
+					//lightningArtist.inputNewLayer();
+				}
+
+				// 2-5.
+				/*
                 Rect webcamButton = new Rect(BUTTON_GAP_X, Screen.height - (7 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
                 isOn = webcamPhoto.isShowing ? "ON" : "OFF";
                 if (GUI.Button(webcamButton, FONT_SIZE + "Webcam " + isOn + "</size>")) {
@@ -157,8 +164,8 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
                 }
                 */
 
-                // 2-1.
-                Rect readButton = new Rect(BUTTON_GAP_X, Screen.height - (1 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				// 2-1.
+				Rect readButton = new Rect(BUTTON_GAP_X, Screen.height - (1 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
 				//isOn = lightningArtist.showOnionSkin ? "ON" : "OFF";
 				if (GUI.Button(readButton, FONT_SIZE + "Demo" + "</size>")) {
 					lightningArtist.armReadFile = true;
