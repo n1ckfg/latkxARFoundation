@@ -139,13 +139,19 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 					}
 				}
 
-				Rect deleteButton = new Rect(BUTTON_GAP_X, Screen.height - (6 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				Rect recurseButton = new Rect(BUTTON_GAP_X, Screen.height - (6 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				isOn = !onnx.hideRenderLayer ? "ON" : "OFF";
+				if (GUI.Button(recurseButton, FONT_SIZE + "Recurse " + isOn + "</size>")) {
+					onnx.hideRenderLayer = !onnx.hideRenderLayer;
+				}
+
+				Rect deleteButton = new Rect(BUTTON_GAP_X, Screen.height - (5 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
 				if (GUI.Button(deleteButton, FONT_SIZE + "Delete Frame" + "</size>")) {
 					lightningArtist.inputDeleteFrame();
 				}
 
-				Rect readButton = new Rect(BUTTON_GAP_X, Screen.height - (1 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
-				if (GUI.Button(readButton, FONT_SIZE + "Demo" + "</size>")) {
+				Rect demoButton = new Rect(BUTTON_GAP_X, Screen.height - (1 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				if (GUI.Button(demoButton, FONT_SIZE + "Demo" + "</size>")) {
 					lightningArtist.armReadFile = true;
 				}
 			}
