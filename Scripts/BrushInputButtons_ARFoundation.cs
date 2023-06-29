@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 
 public class BrushInputButtons_ARFoundation : MonoBehaviour {
 
 	public LightningArtist lightningArtist;
 	public BrushInputTouchARFoundation latkInput;
 	//public WebcamPhoto webcamPhoto;
-	//public UnityEngine.XR.iOS.UnityARVideo arVideo;
-	//public UnityARCameraManager_Custom arCameraManager;
 	public Inference_informative onnx;
-	public UnityEngine.XR.ARFoundation.ARSession arMgr;
+	public ARSession arMgr;
 	public ShowHideGeneric showHideGeneric;
 	public int fontSize = 25;
 	public bool showButtons = true;
@@ -30,7 +29,6 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 
 	private int menuCounter = 1;
 	private int menuCounterMax = 2;
-	//private bool playButtonBlock = false;
 
 	void Awake() {
 		if (lightningArtist == null) lightningArtist = GetComponent<LightningArtist>();
@@ -41,7 +39,7 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 		guiStyle.normal.textColor = Color.white;
 	}
 
-	void Update() {
+    void Update() {
 		if (Input.GetKeyDown(KeyCode.Tab)) showButtons = !showButtons;
 	}
 
