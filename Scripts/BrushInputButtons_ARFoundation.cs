@@ -10,6 +10,7 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 	//public WebcamPhoto webcamPhoto;
 	public Inference_informative onnx;
 	public ARSession arMgr;
+	public AROcclusionManager arOcclusionMgr;
 	public ShowHideGeneric showHideGeneric;
 	public int fontSize = 25;
 	public bool showButtons = true;
@@ -29,6 +30,8 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 
 	private int menuCounter = 1;
 	private int menuCounterMax = 2;
+
+	private bool occlusionEnabled = false;
 
 	void Awake() {
 		if (lightningArtist == null) lightningArtist = GetComponent<LightningArtist>();
@@ -85,8 +88,10 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 				if (GUI.Button(colorButton, FONT_SIZE + "Palette " + isOn + "</size>")) {
 					if (showHideGeneric.target[0].activeSelf) {
 						showHideGeneric.hideColor();
+						setOcclusion(occlusionEnabled);
 					} else {
 						showHideGeneric.showColor();
+						setOcclusion(false);
 					}
 				}
 
@@ -145,7 +150,14 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 					onnx.hideRenderLayer = !onnx.hideRenderLayer;
 				}
 
-				Rect deleteButton = new Rect(BUTTON_GAP_X, Screen.height - (5 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				Rect occludeButton = new Rect(BUTTON_GAP_X, Screen.height - (5 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
+				isOn = occlusionEnabled ? "ON" : "OFF";
+				if (GUI.Button(occludeButton, FONT_SIZE + "Occlude " + isOn + "</size>")) {
+					occlusionEnabled = !occlusionEnabled;
+					setOcclusion(occlusionEnabled);
+				}
+
+				Rect deleteButton = new Rect(BUTTON_GAP_X, Screen.height - (4 * (BUTTON_SIZE_Y - BUTTON_GAP_X)), BUTTON_SIZE_X, BUTTON_SIZE_Y);
 				if (GUI.Button(deleteButton, FONT_SIZE + "Delete Frame" + "</size>")) {
 					lightningArtist.inputDeleteFrame();
 				}
@@ -166,6 +178,15 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 
 			GUI.Label(new Rect(BUTTON_GAP_X * 2f, Screen.height - (12 * (BUTTON_SIZE_Y - BUTTON_GAP_X)) + fontSize, BUTTON_SIZE_X * 2, BUTTON_SIZE_Y), lightningArtist.statusText, guiStyle);
 		}
+	}
+
+	private void setOcclusion(bool b) {
+		if (b) {
+			arOcclusionMgr.requestedOcclusionPreferenceMode = UnityEngine.XR.ARSubsystems.OcclusionPreferenceMode.PreferEnvironmentOcclusion;
+			latkInput.drawMode = BrushInputTouchARFoundation.DrawMode.FREE;
+		} else {
+			arOcclusionMgr.requestedOcclusionPreferenceMode = UnityEngine.XR.ARSubsystems.OcclusionPreferenceMode.NoOcclusion;
+		}		
 	}
 
 }
