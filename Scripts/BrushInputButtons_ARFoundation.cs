@@ -14,6 +14,7 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 	public ShowHideGeneric showHideGeneric;
 	public int fontSize = 25;
 	public bool showButtons = true;
+	public MeshRenderer targetRen;
 
 	[HideInInspector] public float LABEL_START_X = 15.0f;
 	[HideInInspector] public float LABEL_START_Y = 15.0f;
@@ -139,8 +140,10 @@ public class BrushInputButtons_ARFoundation : MonoBehaviour {
 				if (GUI.Button(drawModeButton, FONT_SIZE + "Raycast " + isOn + "</size>")) {
 					if (latkInput.drawMode == BrushInputTouchARFoundation.DrawMode.FREE) {
 						latkInput.drawMode = BrushInputTouchARFoundation.DrawMode.FIXED;
+						targetRen.enabled = false;
 					} else if (latkInput.drawMode == BrushInputTouchARFoundation.DrawMode.FIXED) {
 						latkInput.drawMode = BrushInputTouchARFoundation.DrawMode.FREE;
+						targetRen.enabled = true;
 					}
 				}
 
